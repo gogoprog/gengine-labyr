@@ -13,7 +13,7 @@ Activate the gengine environment
 
     source gengine/bin/activate
     
-Then go to a sample and run it
+Then go to src directory and run the game
 
     cd src/
     gengine-run
