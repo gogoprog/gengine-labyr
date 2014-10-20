@@ -1,0 +1,10 @@
+*.data
+*.html.map
+*.js
+*.html
+!**/gui/*.html
+!**/gui/*.js
+*.mem
+src/**/out
+
+
