@@ -108,6 +108,7 @@ function ComponentTile.onStateExit:moving()
 end
 
 function ComponentTile.onStateEnter:rotating()
+    gengine.audio.playSound(gengine.audio.sound.get("sound"))
     Grid.rotatingTiles = Grid.rotatingTiles + 1
 end
 

@@ -60,6 +60,9 @@ function Game:load()
 
     self.ground = e
     self.ground.position.x = x_offset
+
+    gengine.audio.sound.create("data/sound.ogg")
+
 end
 
 function Game:reset()
