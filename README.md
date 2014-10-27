@@ -11,7 +11,7 @@ Prepare gengine submodule
 
 Activate the gengine environment
 
-    source gengine/bin/activate
+    source gengine/scripts/activate
     
 Then go to src directory and run the game
 
