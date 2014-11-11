@@ -25,14 +25,14 @@ function ComponentKey:remove()
 end
 
 function ComponentKey.onStateEnter:appearing()
-    local sprite = self.entity.keysprite
+    local sprite = self.entity.sprite
     sprite.alpha = 0
     self.appearingTime = 0
     self.appearingDuration = 5
 end
 
 function ComponentKey.onStateUpdate:appearing(dt)
-    local sprite = self.entity.keysprite
+    local sprite = self.entity.sprite
 
     self.appearingTime = self.appearingTime + dt
 
@@ -50,7 +50,7 @@ function ComponentKey.onStateUpdate:appearing(dt)
 end
 
 function ComponentKey.onStateExit:appearing()
-    local sprite = self.entity.keysprite
+    local sprite = self.entity.sprite
     sprite.alpha = 1
     sprite.extent = {x=32, y=32}
 end

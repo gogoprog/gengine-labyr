@@ -12,6 +12,11 @@ function ComponentTile:insert()
 end
 
 function ComponentTile:remove()
+    if self.key then
+        self.key:remove()
+        gengine.entity.destroy(self.key)
+        self.key = nil
+    end
 end
 
 function ComponentTile:moveTo(i,j)

@@ -113,6 +113,29 @@ function Grid:createTile(index, rot)
     return e
 end
 
+function Grid:createKey(n)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("key" ..(n%8) ),
+            extent = { x=self.tileSize, y=self.tileSize },
+            layer = 1
+        },
+        "sprite"
+        )
+
+    e:addComponent(
+        ComponentKey(),
+        {
+        },
+        "key"
+        )
+
+    return e
+end
+
 function Grid:fill(keys)
     for i=0,self.width - 1 do
         for j=0,self.height - 1 do
@@ -130,24 +153,13 @@ function Grid:fill(keys)
         i = math.random(0, self.width - 1)
         j = math.random(0, self.height - 1)
 
-        if not tiles[i][j].key then
-            local e = tiles[i][j]
-            e:addComponent(
-                ComponentSprite(),
-                {
-                    texture = gengine.graphics.texture.get("key" ..(n%8) ),
-                    extent = { x=self.tileSize, y=self.tileSize },
-                    layer = 1
-                },
-                "keysprite"
-                )
+        if not tiles[i][j].tile.key then
+            local key = self:createKey(n)
 
-            e:addComponent(
-                ComponentKey(),
-                {
-                },
-                "key"
-                )
+            tiles[i][j].tile.key = key
+
+            key:insert()
+            key.position = tiles[i][j].position
 
             keys = keys - 1
             n = n + 1
@@ -319,13 +331,13 @@ function Grid:moveTiles(i, j, d, ntile)
 
     if not i then
         if d > 0 then
-            if self.tiles[w][j].key then
+            if self.tiles[w][j].tile.key then
                 return false
             end
             self:setTile(-1,j,ntile)
             ntile.tile:moveTo(0,j)
         else
-            if self.tiles[0][j].key then
+            if self.tiles[0][j].tile.key then
                 return false
             end
             self:setTile(w + 1,j,ntile)
@@ -337,13 +349,13 @@ function Grid:moveTiles(i, j, d, ntile)
         end
     elseif not j then
         if d > 0 then
-            if self.tiles[i][h].key then
+            if self.tiles[i][h].tile.key then
                 return false
             end
             self:setTile(i,-1,ntile)
             ntile.tile:moveTo(i,0)
         else
-            if self.tiles[i][0].key then
+            if self.tiles[i][0].tile.key then
                 return false
             end
             self:setTile(i,h+1,ntile)
