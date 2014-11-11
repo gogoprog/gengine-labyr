@@ -6,20 +6,28 @@
 
 <body>
 <script>
-function pad(num, size) {
+function pad(num, size)
+{
     var s = "000000000" + num;
     return s.substr(s.length-size);
 }
 
-function updateScore(score) {
+function updateScore(score)
+{
     document.getElementById("score").innerHTML = pad(score, 5);
 }
+
+function setLevel(level)
+{
+    document.getElementById("title").innerHTML = "Level " + level;
+}
+
 </script>
 
 <div id="body">
 
     <div class="decor slideRight">
-        <span class="title">Level 1</span>
+        <span class="title" id="title">Level 1</span>
 
         <div class="score"><span id="score">00000</span></div>
     </div>

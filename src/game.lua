@@ -75,6 +75,7 @@ end
 function Game:playLevel(lvl)
     self:start(lvl+3, lvl+3, 32, lvl)
     self.currentLevel = lvl
+    gengine.gui.executeScript("setLevel(" .. lvl .. ")")
 end
 
 function Game:playNextLevel()
