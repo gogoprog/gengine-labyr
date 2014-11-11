@@ -17,6 +17,12 @@ function ComponentTile:remove()
         gengine.entity.destroy(self.key)
         self.key = nil
     end
+
+    if self.lock then
+        self.lock:remove()
+        gengine.entity.destroy(self.lock)
+        self.lock = nil
+    end
 end
 
 function ComponentTile:moveTo(i,j)

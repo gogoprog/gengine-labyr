@@ -19,6 +19,10 @@ function Game:load()
         gengine.graphics.texture.create("data/key" .. i .. ".png")
     end
 
+    for i=0,7 do
+        gengine.graphics.texture.create("data/lock" .. i .. ".png")
+    end
+
     gengine.graphics.texture.create("data/pyramid.png")
     gengine.graphics.texture.create("data/ground.png")
     gengine.graphics.texture.create("data/outtile.png")

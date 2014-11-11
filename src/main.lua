@@ -27,7 +27,7 @@ function update(dt)
 end
 
 function onStartClick()
-    Game:playLevel(1)
+    Game:playLevel(4)
 end
 
 function onContinueClick()

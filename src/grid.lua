@@ -3,6 +3,7 @@ require("component_tile")
 require("component_key")
 require("component_fader")
 require("component_exit")
+require("component_lock")
 require("tiles")
 require('settings')
 
@@ -135,7 +136,32 @@ function Grid:createKey(n)
     return e
 end
 
+
+function Grid:createLock(n)
+    local e = gengine.entity.create()
+
+    e:addComponent(
+        ComponentSprite(),
+        {
+            texture = gengine.graphics.texture.get("lock" ..(n%8) ),
+            extent = { x=self.tileSize, y=self.tileSize },
+            layer = 2
+        },
+        "sprite"
+        )
+
+    e:addComponent(
+        ComponentLock(),
+        {
+        },
+        "lock"
+        )
+
+    return e
+end
+
 function Grid:fill(keys)
+    local key_count = keys
     local empty_tile_count = 0
     for i=0,self.width - 1 do
         for j=0,self.height - 1 do
@@ -169,6 +195,8 @@ function Grid:fill(keys)
 
     local n = 0
 
+    local tile_per_key = {}
+
     while keys > 0 do
         i = math.random(0, self.width - 1)
         j = math.random(0, self.height - 1)
@@ -187,14 +215,28 @@ function Grid:fill(keys)
             tile_entity:removeComponent("fader")
 
             key:insert()
-            key.position = tiles[i][j].position
+            key.position = tile_entity.position
 
             keys = keys - 1
             n = n + 1
+
+            tile_per_key[n] = tile_entity
         end
     end
 
+    for n = 1, key_count - 1 do
+        local lock = self:createLock(n)
+        local tile_entity = tile_per_key[n]
+        local tile_component = tile_entity.tile
+
+        tile_component.lock = lock
+
+        lock:insert()
+        lock.position = tile_entity.position
+    end
+
     local exit_found = false
+    local exit_tile
 
     while not exit_found do
         i = math.random(0, self.width - 1)
@@ -216,7 +258,20 @@ function Grid:fill(keys)
                 )
 
             exit_found = true
+
+            exit_tile = tile_entity
         end
+    end
+
+    if key_count > 0 then
+        local lock = self:createLock(0)
+        local tile_entity = exit_tile
+        local tile_component = tile_entity.tile
+
+        tile_component.lock = lock
+
+        lock:insert()
+        lock.position = tile_entity.position
     end
 
     for i=0,self.width - 1 do
