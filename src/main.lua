@@ -1,4 +1,4 @@
-dofile("game.lua")
+require("game")
 
 local cameraEntity
 

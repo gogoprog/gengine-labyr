@@ -1,8 +1,8 @@
-dofile("component_placer.lua")
-dofile("component_tile.lua")
-dofile("component_key.lua")
-dofile("component_fader.lua")
-dofile("tiles.lua")
+require("component_placer")
+require("component_tile")
+require("component_key")
+require("component_fader")
+require("tiles")
 
 Grid = Grid or {
     tiles = {},

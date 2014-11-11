@@ -1,5 +1,5 @@
-dofile("grid.lua")
-dofile("component_fader.lua")
+require("grid")
+require("component_fader")
 
 Game = Game or {}
 
