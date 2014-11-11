@@ -114,7 +114,15 @@ function Game:pickRandomPiece()
     self.nextPiece = math.random(2,#Tiles)
     self.nextRotation = math.random(0, 3)
 
+    if self.nextTile then
+        self.nextTile:remove()
+        gengine.entity.destroy(self.nextTile)
+    end
+
     self.nextTile = Grid:createTile(self.nextPiece, self.nextRotation)
+    self.nextTile:insert()
+    self.nextTile.tile:changeState("collecting")
+    self:changeState("collecting")
 end
 
 function Game:setNextTile(tile)

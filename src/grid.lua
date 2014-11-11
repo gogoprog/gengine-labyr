@@ -15,14 +15,18 @@ function Grid:reset()
     self.tilesToTest = {}
     self.tilesToCollect = {}
 
-    for _, v in pairs(self.tiles) do
-        for k, t in pairs(v) do
+    local r = 0
+    for i, v in pairs(self.tiles) do
+        for j, t in pairs(v) do
             if t then
                 t:remove()
                 gengine.entity.destroy(t)
+                r = r + 1
             end
         end
     end
+
+    print(r .. " tiles removed.")
 
     self.tiles = {}
 
@@ -328,8 +332,6 @@ function Grid:moveTiles(i, j, d, ntile)
         for i=0,w do
             self.tiles[i][j].tile:moveTo(i+d,j)
         end
-
-        ntile:insert()
     elseif not j then
         if d > 0 then
             if self.tiles[i][h].key then
@@ -348,8 +350,6 @@ function Grid:moveTiles(i, j, d, ntile)
         for j=0,h do
             self.tiles[i][j].tile:moveTo(i,j+d)
         end
-
-        ntile:insert()
     end
 
     self:changeState("movingTiles")
@@ -511,7 +511,6 @@ function Grid.onStateUpdate:movingTiles(dt)
             end
             self.tilesToCollect = {}
         else
-
             self:changeState("idling")
         end
     end
