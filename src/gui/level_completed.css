@@ -1,3 +1,104 @@
-#body {
-    background:rgb(229, 190, 14);
+body {
+    overflow:hidden;
 }
+
+#body {
+    background-image: url("/gui/level_completed.png");
+    overflow:hidden;
+}
+
+#lvl {
+    position:absolute;
+    left:238px;
+    top: 12px;
+    font-size:50px;
+}
+
+#label {
+    position:absolute;
+    left:0;
+    top:166px;
+}
+
+#score {
+    position:relative;
+    left:0;
+    font-size:30px;
+    top:175px;
+    margin-left:0;
+    margin-right:0;
+}
+
+.slideTop{
+    animation-name: slideTop;
+    -webkit-animation-name: slideTop; 
+
+    animation-duration: 1s; 
+    -webkit-animation-duration: 1s;
+
+    animation-timing-function: ease-in-out;
+    -webkit-animation-timing-function: ease-in-out;
+
+    visibility: visible !important;
+}
+
+@keyframes slideTop {
+    0% {        transform: translateY(-1050%);    }
+    50%{        transform: translateY(8%);    }
+    65%{        transform: translateY(-4%);    }
+    80%{        transform: translateY(4%);    }
+    95%{        transform: translateY(-2%);    }
+    100% {        transform: translateY(0%);    }
+}
+
+@-webkit-keyframes slideTop {
+    0% {        -webkit-transform: translateY(-1050%);    }
+    50%{        -webkit-transform: translateY(8%);    }
+    65%{        -webkit-transform: translateY(-4%);    }
+    80%{        -webkit-transform: translateY(4%);    }
+    95%{        -webkit-transform: translateY(-2%);    }
+    100% {     -webkit-transform: translateY(0%);    }
+}
+
+.continue {
+    display:none;
+    position:absolute;
+    right:-80px;
+    bottom:0;
+    width: 233px;
+    height: 35px;
+    background: url("/gui/continue_spritesheet.png") no-repeat;
+    
+    -webkit-animation: play .8s steps(61) forwards;
+       -moz-animation: play .8s steps(61) forwards;
+        -ms-animation: play .8s steps(61) forwards;
+         -o-animation: play .8s steps(61) forwards;
+            animation: play .8s steps(61) forwards;
+}
+
+@-webkit-keyframes play {
+   from { background-position:    0px; }
+     to { background-position: -14213px; }
+}
+
+@-moz-keyframes play {
+   from { background-position:    0px; }
+     to { background-position: -14213px; }
+}
+
+@-ms-keyframes play {
+   from { background-position:    0px; }
+     to { background-position: -14213px; }
+}
+
+@-o-keyframes play {
+   from { background-position:    0px; }
+     to { background-position: -14213px; }
+}
+
+@keyframes play {
+   from { background-position:    0px; }
+     to { background-position: -14213px; }
+}
+
+

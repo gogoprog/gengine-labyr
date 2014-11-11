@@ -172,12 +172,18 @@ function Grid:fill(keys)
         i = math.random(0, self.width - 1)
         j = math.random(0, self.height - 1)
 
-        local tile_component = tiles[i][j].tile
+        local tile_entity = tiles[i][j]
+        local tile_component = tile_entity.tile
 
-        if tile_component.tile == Tiles[1] and not tile_component.tile.key then
+        if tile_component.tile == Tiles[1] and not tile_component.key then
             local key = self:createKey(n)
 
-            tile_component.tile.key = key
+            tile_component.key = key
+
+            tile_entity.sprite:remove()
+            tile_entity.fader:remove()
+            tile_entity:removeComponent("sprite")
+            tile_entity:removeComponent("fader")
 
             key:insert()
             key.position = tiles[i][j].position

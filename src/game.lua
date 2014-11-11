@@ -75,7 +75,6 @@ end
 function Game:playLevel(lvl)
     self:start(lvl+3, lvl+3, 32, lvl)
     self.currentLevel = lvl
-    gengine.gui.executeScript("setLevel(" .. lvl .. ")")
 end
 
 function Game:playNextLevel()
@@ -95,9 +94,22 @@ function Game:start(w, h, ts, keys)
     self:changeState("playing")
     self:pickRandomPiece()
 
+    gengine.gui.onPageLoaded = function() Game:onHudPageLoaded() end
     gengine.gui.loadFile("gui/hud.html")
     self.pyramid:insert()
     self.ground:insert()
+end
+
+function Game:onHudPageLoaded()
+    gengine.gui.executeScript("setLevel(" .. self.currentLevel .. ")")
+    gengine.gui.onPageLoaded = nil
+end
+
+function Game:onLevelPageLoaded()
+    gengine.gui.executeScript("setLevel(" .. self.currentLevel .. ")")
+    gengine.gui.executeScript("setScore(" .. self.score .. ")")
+
+    gengine.gui.onPageLoaded = nil
 end
 
 function Game:update(dt)
@@ -109,7 +121,7 @@ function Game:moveTiles(i, j, d)
         return
     end
 
-    self:increaseScore(1)
+    self:increaseScore(100)
 
     Grid:moveTiles(i, j, d, self.nextTile)
 end
@@ -169,6 +181,7 @@ end
 function Game.onStateEnter:levelCompleted()
     self.pyramid:remove()
     self.ground:remove()
+    gengine.gui.onPageLoaded = function() Game:onLevelPageLoaded() end
     gengine.gui.loadFile("gui/level_completed.html")
 end
 

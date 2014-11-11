@@ -5,12 +5,17 @@
     <link rel="stylesheet" type="text/css" href="/gui/level_completed.css">
 </head>
 <body>
-<div id="body">
-    <span class="title">+ Level Completed +</span>
+<script src="/gui/level_completed.js"></script>
 
-    <div class="buttons">
-        <div class="css_button" onclick="gengine_execute('onContinueClick()');">Continue</div>
-    </div>
+<div id="body">
+    <span class="title" id="lvl">01</span>
+
+    <img src="/gui/label.png" id="label" class="slideTop"/>
+
+    <span class="title" id="score"></span>
+
+
+    <div class="continue" id="continue" onclick="gengine_execute('onContinueClick()');"></div>
 </div>
 
 </body>
