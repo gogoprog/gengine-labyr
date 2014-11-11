@@ -23,6 +23,7 @@ function Game:load()
     gengine.graphics.texture.create("data/ground.png")
     gengine.graphics.texture.create("data/outtile.png")
     gengine.graphics.texture.create("data/outarrow.png")
+    gengine.graphics.texture.create("data/exit.png")
 
     self:changeState("idling")
 
@@ -73,7 +74,7 @@ function Game:reset()
 end
 
 function Game:playLevel(lvl)
-    self:start(lvl+3, lvl+3, 32, lvl)
+    self:start(lvl+3, lvl+3, 32, lvl - 1)
     self.currentLevel = lvl
 end
 
@@ -158,6 +159,10 @@ function Game:onKeyFound()
     if self.keyLeft == 0 then
         self:changeState("levelCompleted")
     end
+end
+
+function Game:onExitFound()
+    self:changeState("levelCompleted")
 end
 
 function Game.onStateUpdate:idling()

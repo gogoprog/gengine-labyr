@@ -196,9 +196,12 @@ function ComponentTile.onStateUpdate:shaking(dt)
 
             if self.entity.key then
                 e.key:remove()
-                e.keysprite:remove()
-                e:removeComponent("key")
-                e:removeComponent("keysprite")
+                e.key = nil
+            end
+
+            if self.entity.exit then
+                e.exit:remove()
+                e.exit = nil
             end
         end
     end

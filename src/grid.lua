@@ -2,6 +2,7 @@ require("component_placer")
 require("component_tile")
 require("component_key")
 require("component_fader")
+require("component_exit")
 require("tiles")
 require('settings')
 
@@ -151,7 +152,7 @@ function Grid:fill(keys)
     local i, j
     local tiles = self.tiles
 
-    while keys > empty_tile_count do
+    while keys + 1 > empty_tile_count do
         i = math.random(0, self.width - 1)
         j = math.random(0, self.height - 1)
 
@@ -190,6 +191,31 @@ function Grid:fill(keys)
 
             keys = keys - 1
             n = n + 1
+        end
+    end
+
+    local exit_found = false
+
+    while not exit_found do
+        i = math.random(0, self.width - 1)
+        j = math.random(0, self.height - 1)
+
+        local tile_entity = tiles[i][j]
+        local tile_component = tile_entity.tile
+
+        if tile_component.tile == Tiles[1] and not tile_component.key then
+            
+            tile_entity.sprite.texture = gengine.graphics.texture.get("exit")
+            tile_entity.rotation = 0
+
+            tile_entity:addComponent(
+                ComponentExit(),
+                {
+                },
+                "exit"
+                )
+
+            exit_found = true
         end
     end
 
@@ -510,6 +536,12 @@ end
 
 function Grid:processContour(contour)
     local surrounded_tiles = self:getSurroundedTiles(contour)
+
+    for _, v in ipairs(surrounded_tiles) do
+        if v.lock then
+            return
+        end
+    end
 
     for _, v in ipairs(contour) do
         v.tile:changeState("shaking")
