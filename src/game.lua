@@ -1,5 +1,8 @@
 require("grid")
 require("component_fader")
+require('settings')
+
+local Settings = Settings
 
 Game = Game or {}
 
@@ -53,8 +56,8 @@ function Game:load()
         )
 
     e:addComponent(ComponentFader(), {
-            delay = 2,
-            duration = 1,
+            delay = Settings.Ground.Delay,
+            duration = Settings.Ground.Duration,
             autoStart = true
         })
 

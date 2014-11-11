@@ -1,3 +1,7 @@
+require('settings')
+
+local Settings = Settings
+
 ComponentFader = {}
 
 gengine.stateMachine(ComponentFader)
@@ -13,7 +17,7 @@ function ComponentFader:insert()
 end
 
 function ComponentFader:update(dt)
-    self:updateState(dt)
+    self:updateState(dt * Settings.Fader.TimeFactor)
 end
 
 function ComponentFader:remove()

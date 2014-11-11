@@ -3,6 +3,9 @@ require("component_tile")
 require("component_key")
 require("component_fader")
 require("tiles")
+require('settings')
+
+local Settings = Settings
 
 Grid = Grid or {
     tiles = {},
@@ -98,8 +101,8 @@ function Grid:createTile(index, rot)
     e:addComponent(
         ComponentFader(),
         {
-            duration = 1,
-            delay = 2
+            duration = Settings.Tile.Duration,
+            delay = Settings.Tile.Delay
         },
         "fader"
         )
@@ -217,8 +220,8 @@ function Grid:createPlacer(i, j, rot)
      e:addComponent(
         ComponentFader(),
         {
-            duration = 1,
-            delay = 2
+            duration = Settings.Placer.Duration,
+            delay = Settings.Placer.Delay
         },
         "fader"
         )

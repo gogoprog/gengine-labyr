@@ -1,3 +1,7 @@
+require('settings')
+
+local Settings = Settings
+
 ComponentKey = {}
 
 gengine.stateMachine(ComponentKey)
