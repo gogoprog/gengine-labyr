@@ -29,8 +29,6 @@ function Grid:reset()
         end
     end
 
-    print(r .. " tiles removed.")
-
     self.tiles = {}
 
     for k, v in ipairs(self.placers) do
@@ -153,10 +151,12 @@ function Grid:fill(keys)
         i = math.random(0, self.width - 1)
         j = math.random(0, self.height - 1)
 
-        if not tiles[i][j].tile.key then
+        local tile_component = tiles[i][j].tile
+
+        if tile_component.tile == Tiles[1] and not tile_component.tile.key then
             local key = self:createKey(n)
 
-            tiles[i][j].tile.key = key
+            tile_component.tile.key = key
 
             key:insert()
             key.position = tiles[i][j].position
