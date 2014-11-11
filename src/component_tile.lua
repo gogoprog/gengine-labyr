@@ -85,6 +85,10 @@ function ComponentTile:update(dt)
     self:updateState(dt)
 end
 
+function ComponentTile.onStateEnter:moving()
+    table.insert(Grid.movingTiles, self.entity)
+end
+
 function ComponentTile.onStateUpdate:moving(dt)
     self.time = self.time + dt
 
@@ -104,7 +108,10 @@ end
 
 function ComponentTile.onStateExit:moving()
     local i,j = self.target[1], self.target[2]
+    Grid:removeMovingTile(self.entity)
+
     Grid:onTileArrived(self.entity, i, j)
+    self:changeState("none")
 end
 
 function ComponentTile.onStateEnter:rotating()
@@ -198,6 +205,7 @@ function ComponentTile.onStateEnter:collecting()
     self.targetPostition = {-294, 135}
     self.moveDuration = 0.3
     self.entity.sprite.layer = 100
+    table.insert(Grid.movingTiles, self.entity)
 end
 
 local function easeIneaseOut(p)
@@ -232,7 +240,7 @@ function ComponentTile.onStateUpdate:collecting(dt)
 end
 
 function ComponentTile.onStateExit:collecting()
-    Grid.movingTiles = Grid.movingTiles - 1
+    Grid:removeMovingTile(self.entity)
 end
 
 function ComponentTile:canConnect(dir)

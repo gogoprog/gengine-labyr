@@ -101,7 +101,7 @@ function Game:update(dt)
 end
 
 function Game:moveTiles(i, j, d)
-    if self.state ~= "playing" or Grid.movingTiles ~= 0 then
+    if self.state ~= "playing" or #Grid.movingTiles ~= 0 then
         return
     end
 
@@ -144,6 +144,10 @@ end
 
 function Game.onStateUpdate:playing()
     Grid:update(dt)
+
+    if gengine.input.keyboard:isJustDown(108) then
+        self:changeState("levelCompleted")
+    end
 end
 
 function Game.onStateExit:playing()

@@ -3,7 +3,7 @@ dofile("game.lua")
 local cameraEntity
 
 function init()
-    gengine.application.setName("[gengine-tests] 90-labyr")
+    gengine.application.setName("Labyr")
     gengine.application.setExtent(768, 512)
 end
 
@@ -20,6 +20,10 @@ end
 
 function update(dt)
     Game:update(dt)
+
+    if gengine.input.keyboard:isJustDown(27) then
+        gengine.application.quit()
+    end
 end
 
 function onStartClick()
